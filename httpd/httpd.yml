@@ -1,0 +1,13 @@
+---
+- hosts: all
+  tasks:
+  - name: install the latest version of apache
+    yum: name=httpd state=latest
+  - name: write the apache config file
+    template: src=./httpd.js dest=/etc/httpd/conf/httpd.conf
+#  - name: ensure apacheache is runing (and enable it at boot)
+#    service: name=httpd state=started enable=yes
+#  handlers:
+  - name: restart apache
+    service: name=httpd state=restarted enabled=yes
+

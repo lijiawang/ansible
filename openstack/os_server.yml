@@ -1,0 +1,15 @@
+- hosts: all
+  tasks:
+  - name:
+    os_server:
+#      auth:
+#         auth_url: http://310.xcodest.me:5000/v3
+#         username: ljw
+#         password: ljw123456
+#         project_name: lijiawang
+      name: test
+      image: cirros-0.3.5-x86_64-disk
+      flavor: m1.tiny
+      nics:
+         - net-name: qwe
+
