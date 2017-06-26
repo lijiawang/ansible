@@ -1,0 +1,12 @@
+- hosts: all
+  tasks:
+  - name:
+    os_server:
+      name: test1
+      image: centos7_20170621
+      flavor: 4C.16G
+      key_name: ljw 
+      nics:
+         - net-name: qwe
+      floating_ips:
+         - 192.168.23.73
