@@ -1,0 +1,16 @@
+# 上传raw格式镜像
+- hosts: all
+  tasks:
+  - name:  Downloading cirros image
+    get_url:  url=http://download.cirros-cloud.net/0.3.4/cirros-0.3.4-x86_64-disk.img dest=/root/cirros-0.3.4-x86_64-disk.img
+  - name: 
+    yum: name=qemu-img state=installed 
+  - name: qcow2--->raw
+    command: qemu-img convert -f qcow2 -O raw /root/cirros-0.3.4-x86_64-disk.img /root/cirros.raw
+  - name: cirros
+    os_image:
+      name: cirros1
+      disk_format: raw
+      filename: /root/cirros.raw
+      is_public: false
+
