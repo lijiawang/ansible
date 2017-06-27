@@ -1,4 +1,4 @@
-# 上传raw格式镜像
+# 将镜像转换成raw格式并上传raw格式镜像
 - hosts: all
   tasks:
   - name:  Downloading cirros image
