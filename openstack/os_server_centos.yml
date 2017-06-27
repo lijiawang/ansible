@@ -1,4 +1,4 @@
-#创建vm，并绑定浮动ip
+#创建vm，并绑定为192.168.23.73的浮动ip
 - hosts: all
   tasks:
   - name:
