@@ -6,21 +6,21 @@
       state: present
       name: ljw-net
 
-  - name: init private subnet
+  - name: init private subnet   # 创建子网
     os_subnet:
       state: present
       name: ljw_subnet
       network_name: ljw-net
       cidr: 10.0.0.0/24
-      allocation_pool_start: 10.0.0.10
+      allocation_pool_start: 10.0.0.10   #分配ip范围
       allocation_pool_end: 10.0.0.20
-  - name: init router
+  - name: init router   # 创建路由
     os_router:
       state: present
       name: ljw-router
-      network: public
-      interfaces:
-        - ljw_subnet
+      network: public  # 外部网络
+      interfaces:  # 链接子网接口
+        - ljw_subnet 
   - name: create a vm1
     os_server:
       name: vm 
@@ -30,5 +30,5 @@
       security_groups: default
       nics:
         - net-name: ljw-net
-      floating_ip_pools: public
+      floating_ip_pools: public          #自动分配浮动ip
 
