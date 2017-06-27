@@ -1,0 +1,51 @@
+- hosts: all
+  tasks:
+  - name:  create flavor 
+    os_nova_flavor:
+      name: tiny
+      ram: 256
+      vcpus: 1
+      disk: 1
+      flavorid: 1
+  - name:  Downloading cirros image
+    get_url:  url=http://download.cirros-cloud.net/0.3.4/cirros-0.3.4-x86_64-disk.img dest=/root/cirros-0.3.4-x86_64-disk.img
+  - name: cirros
+    os_image:
+      name: cirros
+      disk_format: qcow2
+      filename: /root/cirros-0.3.4-x86_64-disk.img
+  - name: key
+    os_keypair:
+      name: ansible_key
+#      public_key_file: /root/ansible_key.pub 
+  - name: init private network
+    os_network:
+      state: present
+      name: ljw-net
+
+  - name: init private subnet
+    os_subnet:
+      state: present
+      name: ljw_subnet
+      network_name: ljw-net
+      cidr: 10.0.0.0/24
+      allocation_pool_start: 10.0.0.10
+      allocation_pool_end: 10.0.0.20
+  - name: init router
+    os_router:
+      state: present
+      name: ljw-router
+      network: public
+      interfaces:
+        - ljw_subnet
+  - name: create a vm1
+    os_server:
+      name:  vm 
+      image: cirros
+      key_name: ansible_key
+      flavor: tiny
+      nics:
+        - net-name: ljw-net
+      floating_ip_pools: public
+
+
