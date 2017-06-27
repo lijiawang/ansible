@@ -1,0 +1,25 @@
+- hosts: all
+  tasks:
+  - name: create a volume
+    os_volume:
+      state: present
+      size: 40
+#      volume_type: ssd
+      display_name: test_volume
+  - name: create a vm1
+    os_server:
+      name: vm1
+      image: centos7_20170621
+      key_name: ljw
+      flavor: 4C.8G
+      security_groups: default
+      nics:
+        - net-name: qwe
+      floating_ip_pools: public
+  - name: attach a volume
+    os_server_volume:
+      state: present
+      server: vm1
+      volume: test_volume
+      device: /dev/vdb
+
