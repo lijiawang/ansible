@@ -1,0 +1,13 @@
+# 创建vm1虚拟机，并自动分配绑定浮动ip
+- hosts: all
+  tasks:
+  - name: create a vm1
+    os_server:
+      name: vm1
+      image: centos7_20170621
+      key_name: ljw
+      flavor: 4C.8G
+      security_groups: default
+      nics:
+        - net-name: qwe
+      floating_ip_pools: public
