@@ -1,0 +1,23 @@
+- hosts: all
+  tasks:
+  - name: vm
+    os_server:
+      name: vm1
+      boot_from_volume: yes   # 是否新建卷
+      volume_size: 50   # 存储卷大小(GB)
+      image: centos7_20170621
+      flavor: 4C.8G
+      nics: 
+        - net-name: qwe
+      key_name: ljw
+      floating_ip_pools: public
+#  - name: create a vm1
+#    os_server:
+#      name:  vm
+#      image: centos7_20170621
+#      key_name: ljw
+#      flavor: 4C.8G
+#      nics:
+#        - net-name: qwe
+#      floating_ip_pools: public
+

@@ -1,0 +1,26 @@
+- hosts: all
+  tasks:
+  - name: delete vm
+    os_server:
+      name: vm
+      state: absent
+  - name: delete routers
+    os_router:
+      name: ljw-router
+      state: absent
+  - name: delete network
+    os_network:
+      name: ljw-net
+      state: absent
+  - name: delete image
+    os_image:
+      name: cirros
+      state: absent
+  - name: delete key
+    os_keypair:
+      name: ansible_key
+      state: absent
+  - name: delete flavor
+    os_nova_flavor:
+      name: tiny
+      state: absent
