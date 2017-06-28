@@ -1,0 +1,52 @@
+- hosts: all
+#  gather_facts: False
+  tasks:
+#  - name: Ensure the shade installed
+#    pip: name=shade
+#    run_once: True
+#    connection: local
+
+#  - name: auth
+#    os_auth:
+#      auth_url: http://310.xcodest.me:5000/v3
+#      username: ljw
+#      password: ljw123456
+#      project_name: lijiawang
+
+  - name: vm
+    os_server:
+      state: present
+      name: vm1
+#      boot_from_volume: yes   # 是否新建卷
+#      volume_size: 50   # 存储卷大小(GB)
+      image: centos7_20170621
+      flavor: 4C.8G
+      nics: 
+        - net-name: qwe
+      key_name: ljw
+      floating_ip_pools: public
+  - name: create a volume
+    os_volume:
+      state: present
+      size: 10
+      volume_type: ssd
+      display_name: vm1
+  - name: attch a volume
+    os_server_volume:
+      state: present
+      server: vm1
+      volume: vm1
+      device: /dev/vdb
+  - name: attch a volume
+    os_server_volume:
+      state: absent
+      server: vm1
+      volume: vm1
+  - name: rm volume
+    os_volume:
+      state: absent
+      display_name: vm1
+  - name: rm vm1
+    os_server:
+      state: absent
+      name: vm1
